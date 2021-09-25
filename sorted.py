@@ -8,19 +8,19 @@ def make_sorted_txt():
                 counter = 0
                 for line in f:
                     counter += 1
-            dict_files[counter] = file  
+            dict_files[file] = counter  
+    
+
 
 
     sort = open('sorted.txt', 'a', encoding = 'utf8')
-    for item in sorted(dict_files.keys()):
-        temp_str = dict_files[item] + '\n' + str(item) +'\n'
+    for item in dict(sorted(dict_files.items(), key=lambda item: item[1])):
+        temp_str = item + '\n' + str(dict_files[item]) +'\n'
         sort.write(temp_str)
             
-        with open(dict_files[item], 'r', encoding = 'utf8')as text:
-            all_text = text.readlines()
-        text.close()
-        for line in all_text:
-            sort.write(line)
+        with open(item, 'r', encoding = 'utf8') as text:
+           for line in text:
+               sort.write(line)
         sort.write('\n')
 
     sort.close()
